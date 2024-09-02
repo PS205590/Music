@@ -24,7 +24,7 @@ class AlbumsTableSeeder extends Seeder
 
         Album::create(
             [
-                'name' => 'Parachutes',
+                'name' => 'Parachutess',
                 'year' => '2000',
                 'times_sold' => '13000000',
             ]
