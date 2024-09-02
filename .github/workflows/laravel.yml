@@ -14,7 +14,6 @@ jobs:
     steps:
     - uses: actions/checkout@v4
 
-    # Setup PHP with a specific version and necessary extensions
     - name: Setup PHP
       uses: shivammathur/setup-php@v2
       with:
@@ -23,22 +22,32 @@ jobs:
         ini-values: post_max_size=256M, max_execution_time=300
         tools: composer
 
+    - name: Check PHP Version and Extensions
+      run: |
+        php -v
+        php -m
+
     - name: Copy .env
       run: php -r "file_exists('.env') || copy('.env.example', '.env');"
 
+    - name: Validate .env File
+      run: |
+        if [ ! -f .env ]; then echo ".env file is missing"; exit 1; fi
+
     - name: Install Dependencies
-      run: composer install --prefer-dist --no-progress --no-suggest --optimize-autoloader --ignore-platform-reqs
+      run: composer install --verbose
 
     - name: Generate Application Key
-      run: php artisan key:generate
+      run: php artisan key:generate --verbose
 
     - name: Set Directory Permissions
-      run: chmod -R 777 storage bootstrap/cache
+      run: sudo chmod -R 777 storage bootstrap/cache
 
     - name: Create SQLite Database
       run: |
         mkdir -p database
         touch database/database.sqlite
+        ls -la database/
 
     - name: Run Tests
       env:
@@ -46,3 +55,9 @@ jobs:
         DB_DATABASE: database/database.sqlite
         APP_ENV: testing
       run: php artisan test --verbose
+
+    - name: Debugging Step
+      run: |
+        set -e
+        php artisan key:generate --verbose || { echo "Key generation failed"; exit 1; }
+        php artisan test --verbose || { echo "Tests failed"; exit 1; }
