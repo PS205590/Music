@@ -1,0 +1,40 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+.bt-edit {
+    @apply bg-blue-400 text-black rounded-lg px-1 mx-1 border-black border-2 hover:bg-purple-500
+}
+
+.bt-delete {
+    @apply bg-red-600 text-white rounded-lg px-1 border-black border-2 hover:bg-purple-500
+}
+
+.bt-create{
+    @apply bg-green-500 text-black rounded-lg my-1 px-1 border-black border-2 hover:bg-purple-500
+}
+
+.bt-nav{
+    @apply bg-purple-800 text-white rounded-lg my-1 px-1 border-black border-2 hover:bg-purple-500
+}
+
+
+input{
+    @apply border-black border-2 rounded-lg px-2
+}
+
+.headline{
+    @apply text-orange-500 font-bold text-4xl px-5
+}
+
+.tablehead{
+    @apply text-sm font-medium text-white px-6 py-4
+}
+
+.tablecell{
+    @apply border-r px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900
+}
+
+.actionscell{
+    @apply flex flex-row justify-center py-4
+}
