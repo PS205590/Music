@@ -75,9 +75,3 @@ jobs:
         DB_PASSWORD: ""
         APP_ENV: testing
       run: php artisan migrate --force
-
-    - name: Debugging Step
-      run: |
-        set -e
-        php artisan key:generate --verbose || { echo "Key generation failed"; exit 1; }
-        php artisan test --verbose || { echo "Tests failed"; exit 1; }
