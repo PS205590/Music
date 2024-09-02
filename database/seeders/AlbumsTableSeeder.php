@@ -16,7 +16,7 @@ class AlbumsTableSeeder extends Seeder
     {
         Album::create(
             [
-                'name' => 'Night at the Opera',
+                'name' => 'Night at the Operas',
                 'year' => '1975',
                 'times_sold' => '60000000000',
             ]
