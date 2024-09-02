@@ -1,15 +1,10 @@
-# PHP
-# Test and package your PHP project.
-# Add steps that run tests, save build artifacts, deploy, and more:
-# https://docs.microsoft.com/azure/devops/pipelines/languages/php
-
 trigger:
 - main
 
 pool: MyPool
 
 variables:
-  phpVersion: 7.2
+  phpVersion: '7.2'
 
 steps:
 - script: |
@@ -21,5 +16,10 @@ steps:
     php -version
   displayName: 'Use PHP version $(phpVersion)'
 
-- script: composer install --no-interaction --prefer-dist
+- script: |
+    if ! command -v composer > /dev/null; then
+      curl -sS https://getcomposer.org/installer | php
+      sudo mv composer.phar /usr/local/bin/composer
+    fi
+    composer install --no-interaction --prefer-dist
   displayName: 'composer install'
