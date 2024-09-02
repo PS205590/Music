@@ -18,7 +18,7 @@ class AlbumsTableSeeder extends Seeder
             [
                 'name' => 'Night at the Operas',
                 'year' => '1975',
-                'times_sold' => '60000000000',
+                'times_sold' => '600000',
             ]
         );
 
@@ -26,7 +26,7 @@ class AlbumsTableSeeder extends Seeder
             [
                 'name' => 'Parachutess',
                 'year' => '2000',
-                'times_sold' => '13000000',
+                'times_sold' => '13000',
             ]
         );
 

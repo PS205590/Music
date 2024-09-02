@@ -15,4 +15,9 @@ class ExampleTest extends TestCase
     {
         $this->assertTrue(true);
     }
+
+    public function test_that_math_works()
+    {
+        $this->assertEquals(4, 2 + 2);
+    }
 }
