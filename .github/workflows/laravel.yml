@@ -16,7 +16,11 @@ jobs:
         image: mysql:8.0
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
+<<<<<<< HEAD
           MYSQL_DATABASE: music
+=======
+          MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
+>>>>>>> deefce252e95fa8377e0f83dc0410f2d4628b293
         ports:
         - 3306:3306
         options: >-
@@ -68,10 +72,17 @@ jobs:
     - name: Run Migrations
       env:
         DB_CONNECTION: mysql
+<<<<<<< HEAD
         DB_HOST: 127.0.0.1
         DB_PORT: 3306
         DB_DATABASE: music
         DB_USERNAME: root
+=======
+        DB_HOST: ${{ secrets.DB_HOST }}
+        DB_PORT: ${{ secrets.DB_PORT }}
+        DB_DATABASE: ${{ secrets.MYSQL_DATABASE }}
+        DB_USERNAME: ${{ secrets.DATABASE_USERNAME }}
+>>>>>>> deefce252e95fa8377e0f83dc0410f2d4628b293
         DB_PASSWORD: ""
         APP_ENV: testing
       run: php artisan migrate --force
