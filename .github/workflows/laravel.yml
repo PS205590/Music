@@ -16,11 +16,7 @@ jobs:
         image: mysql:8.0
         env:
           MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-<<<<<<< HEAD
           MYSQL_DATABASE: music
-=======
-          MYSQL_DATABASE: ${{ secrets.MYSQL_DATABASE }}
->>>>>>> deefce252e95fa8377e0f83dc0410f2d4628b293
         ports:
         - 3306:3306
         options: >-
