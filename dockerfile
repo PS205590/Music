@@ -1,14 +1,39 @@
-FROM php:8.2
+# Stage 1: Build the application
+FROM php:8.2-fpm-alpine as build
 
-RUN apt-get update -y && apt-get install -y openssl zip unzip git
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
-RUN docker-php-ext-install pdo pdo_mysql
+# Set working directory
+WORKDIR /var/www
 
-WORKDIR /app
-COPY . /app
+# Install dependencies
+RUN apk add --no-cache \
+    git \
+    curl \
+    libpng-dev \
+    libjpeg-turbo-dev \
+    libfreetype6-dev \
+    libzip-dev \
+    unzip \
+    && docker-php-ext-configure gd --with-freetype --with-jpeg \
+    && docker-php-ext-install -j$(nproc) gd pdo_mysql zip bcmath \
+    && pecl install xdebug \
+    && docker-php-ext-enable xdebug
 
-RUN composer install
+# Install Composer
+COPY --from=composer:2 /usr/bin/composer /usr/bin/composer
 
+# Copy the application
+COPY . .
+
+# Install PHP dependencies
+RUN composer install --no-dev --optimize-autoloader --no-interaction --no-progress
+
+# Copy environment file
+COPY .env.example .env
+
+# Generate application key
+RUN php artisan key:generate
+
+# Expose port 8000 and start php-fpm server
 EXPOSE 8000
 
-CMD php artisan serve --host=0.0.0.0 --port=8000
+CMD ["php-fpm"]
