@@ -68,17 +68,10 @@ jobs:
     - name: Run Migrations
       env:
         DB_CONNECTION: mysql
-<<<<<<< HEAD
-        DB_HOST: 127.0.0.1
-        DB_PORT: 3306
-        DB_DATABASE: music
-        DB_USERNAME: root
-=======
         DB_HOST: ${{ secrets.DB_HOST }}
         DB_PORT: ${{ secrets.DB_PORT }}
         DB_DATABASE: ${{ secrets.MYSQL_DATABASE }}
         DB_USERNAME: ${{ secrets.DATABASE_USERNAME }}
->>>>>>> deefce252e95fa8377e0f83dc0410f2d4628b293
         DB_PASSWORD: ""
         APP_ENV: testing
       run: php artisan migrate --force
