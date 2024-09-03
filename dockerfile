@@ -1,7 +1,11 @@
 FROM php:8.3
 
-RUN apt-get update -y && apt-get install -y openssl zip unzip git
-RUN curl -sS https://getcomposer.org/installer | php -- --install-dir=/usr/local/bin --filename=composer
+# Install system dependencies and Node.js
+RUN apt-get update -y && apt-get install -y openssl zip unzip git curl gnupg
+RUN curl -sL https://deb.nodesource.com/setup_18.x | bash -
+RUN apt-get install -y nodejs
+
+# Install PHP extensions
 RUN docker-php-ext-install pdo pdo_mysql
 
 WORKDIR /var/www
@@ -14,13 +18,15 @@ RUN chmod -R 775 storage bootstrap/cache
 # Handle missing .env file
 RUN if [ ! -f .env ]; then cp .env.example .env; fi
 
-# Install dependencies and clear caches
+# Install PHP and Node.js dependencies
 RUN composer install
-RUN php artisan key:generate
-RUN php artisan config:cache
-RUN php artisan route:cache
-RUN php artisan view:cache
-RUN npm run build
+RUN npm ci
 
-EXPOSE 8000
-CMD php artisan serve --host=0.0.0.0 --port=8000
+# Set the port Vite will use
+ENV VITE_PORT=5173
+
+# Expose ports for PHP and Vite
+EXPOSE 8000 5173
+
+# Run PHP and Vite development servers
+CMD php artisan serve --host=0.0.0.0 --port=8000 & npm run dev -- --host
