@@ -7,7 +7,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  laravel-tests:
+  laravel-development-test:
 
     runs-on: ubuntu-latest
 
@@ -75,3 +75,7 @@ jobs:
         DB_PASSWORD: ""
         APP_ENV: testing
       run: php artisan migrate:fresh --seed
+
+    - name: Run Tests
+      run: php artisan test --verbose
+        
