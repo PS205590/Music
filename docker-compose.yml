@@ -1,7 +1,7 @@
 services:
   laravelapp:
     container_name: laravelapp
-    image: slimmerik/deployment-test:latest
+    image: slimmerik/deployment
     build: . 
     ports:
       - "8080:8080"
