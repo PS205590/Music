@@ -3,7 +3,7 @@ version: '3'
 services:
   laravelapp:
     container_name: laravelapp
-    image: slimmerik/deployment-test
+    image: slimmerik/deployment
     build: . 
     ports:
       - "8080:8080"
