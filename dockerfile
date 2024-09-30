@@ -7,7 +7,7 @@ RUN docker-php-ext-install pdo pdo_mysql
 WORKDIR /var/www
 COPY . /var/www
 
-# Ensure necessary file permissions
+# Ensure necessary file permissions are given
 RUN chown -R www-data:www-data storage bootstrap/cache
 RUN chmod -R 775 storage bootstrap/cache
 
