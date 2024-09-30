@@ -12,7 +12,7 @@ RUN chown -R www-data:www-data storage bootstrap/cache
 RUN chmod -R 775 storage bootstrap/cache
 
 # Handle missing .env file
-# RUN if [ ! -f .env ]; then cp .env.example .env; fi
+RUN if [ ! -f .env ]; then cp .env.example .env; fi
 
 # Install dependencies and clear caches
 RUN composer install
