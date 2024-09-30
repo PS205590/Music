@@ -17,7 +17,7 @@
 </head>
 
 <body>
-<p>Hi</p>
+<p>Hello there!</p>
     @yield('main')
 </body>
 
