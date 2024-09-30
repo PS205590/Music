@@ -1,14 +1,12 @@
-version: '3'
-
 services:
   laravelapp:
     container_name: laravelapp
-    image: slimmerik/deployment-test
+    image: slimmerik/deployment
     build: . 
     ports:
       - "8080:8080"
     env_file:
-      - .env.example
+      - .env
     depends_on:
       - db
     networks:

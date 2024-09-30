@@ -7,7 +7,7 @@ RUN docker-php-ext-install pdo pdo_mysql
 WORKDIR /var/www
 COPY . /var/www
 
-# Ensure necessary file permissions
+# Ensure necessary file permissions are given
 RUN chown -R www-data:www-data storage bootstrap/cache
 RUN chmod -R 775 storage bootstrap/cache
 
@@ -21,7 +21,5 @@ RUN php artisan config:cache
 RUN php artisan route:cache
 RUN php artisan view:cache
 
-####
-
-EXPOSE 8000
-CMD php artisan serve --host=0.0.0.0 --port=8000
+EXPOSE 8080
+CMD php artisan serve --host=0.0.0.0 --port=8080
